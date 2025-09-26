@@ -90,6 +90,9 @@ model, vectorizer = load_model_and_vectorizer("yt_chrome_plugin_model", "1", "./
 def home():
     return "Welcome to our flask api"
 
+@app.get("/health")
+def health():
+    return "ok", 200
 
 
 @app.route('/predict_with_timestamps', methods=['POST'])

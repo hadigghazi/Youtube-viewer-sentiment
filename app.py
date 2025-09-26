@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import mlflow
 import numpy as np
-import re
+import re 
 import pandas as pd
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
@@ -90,6 +90,9 @@ model, vectorizer = load_model_and_vectorizer("yt_chrome_plugin_model", "1", "./
 def home():
     return "Welcome to our flask api"
 
+@app.get("/health")
+def health():
+    return "ok", 200
 
 
 @app.route('/predict_with_timestamps', methods=['POST'])

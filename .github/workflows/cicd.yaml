@@ -106,6 +106,13 @@ jobs:
             -e AWS_REGION=${{ secrets.AWS_REGION }} \
             -e MLFLOW_TRACKING_URI=http://host.docker.internal:5000 \
             ${{secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+      - name: Verify service on 8080
+        run: |
+          for i in {1..30}; do
+            curl -fsS http://localhost:8080/health && exit 0
+            sleep 2
+          done
+          echo "App didn't start"; docker logs cnncls; exit 1
       - name: Clean previous images and containers
         run: |
          docker system prune -f
